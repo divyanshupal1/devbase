@@ -6,23 +6,23 @@ import User  from "@/models/User"
 
 
 
-export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          access_type: "offline",
-          response_type: "code",
-          // scope: "openid email profile"
-          scope: "openid email profile https://www.googleapis.com/auth/spreadsheets"
-        }
-      }
-    })
-  ],
-}
+// export const authOptions: NextAuthOptions = {
+//   secret: process.env.NEXTAUTH_SECRET,
+//   providers: [
+//     GoogleProvider({
+//       clientId: process.env.GOOGLE_CLIENT_ID!,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+//       authorization: {
+//         params: {
+//           access_type: "offline",
+//           response_type: "code",
+//           // scope: "openid email profile"
+//           scope: "openid email profile https://www.googleapis.com/auth/spreadsheets"
+//         }
+//       }
+//     })
+//   ],
+// }
 
 
 
