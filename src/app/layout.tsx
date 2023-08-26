@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import "./globals.css"
-import Provider from '@/components/Provider'
+import Provider from '@/components/providers/next_auth_Provider'
 import Navigationpanel from '@/components/navigation/panel/Navigationpanel'
 
 
@@ -19,10 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-          <body >
+          <body className='bg-stone-950' >
             <Provider >
-              <Navigationpanel/>
-              {children}
+              <div className='w-full h-screen bg-slate-800 flex'>
+                  <div>
+                    <Navigationpanel/>
+                  </div>
+                  <div>
+                     {children}
+                  </div>
+              </div>
+              
             </Provider>
           </body>
       
