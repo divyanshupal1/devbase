@@ -18,7 +18,7 @@ export default function Home() {
   console.log(providers)
 
   return (
-    <main className="h-screen flex">
+    <main className="h-screen flex-col">
       {/* <Navigationpanel/> */}
       <h1 className="text-6xl font-bold text-center text-gray-50">Hello {session?.user.name},</h1>
        {session?.user ? 

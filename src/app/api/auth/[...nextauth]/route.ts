@@ -40,7 +40,7 @@ export async function auth(req: NextApiRequest, res: NextApiResponse) {
           params: {
             access_type: "offline",
             response_type: "code",
-            scope: "openid email profile"
+            scope: "openid email profile",
           }
         }
       })

@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next'
 import "./globals.css"
 import Provider from '@/components/providers/next_auth_Provider'
@@ -15,14 +16,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-
+ 
   return (
     <html lang="en">
       
-          <body className='bg-stone-950' >
+          <body className='bg-stone-950 h-screen overflow-hidden' >
             <Provider >
               <div className='w-full h-screen bg-slate-800 flex'>
-                  <div>
+                  <div className=''>
                     <Navigationpanel/>
                   </div>
                   <div>
