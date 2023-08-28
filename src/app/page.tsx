@@ -2,7 +2,9 @@
 import { useState ,useEffect} from 'react'
 import Image from 'next/image'
 import {signIn, signOut, useSession,getProviders } from 'next-auth/react'
-import Navigationpanel from '@/components/navigation/panel/Navigationpanel'
+import { DropDown, DropDownHeader,HeaderIcon, DropDownItems, DropItem, HeaderTitle } from '@/components/ui/Dropdown/Dropdown'
+import { UserIcon, ExitIcon } from '@/components/Icons/Icons'
+import { Backdrop } from '@/components/ui/Backdrop/Backdrop'
 
 export default function Home() {
   const {data: session} = useSession()
@@ -11,11 +13,11 @@ export default function Home() {
     (async () => {
       const res = await getProviders();
       setProviders(res);
-      console.log(res)
+      // console.log(res)
     })();
   }, []);
 
-  console.log(providers)
+  // console.log(providers)
 
   return (
     <main className="h-screen flex-col">
@@ -35,7 +37,7 @@ export default function Home() {
             key={provider.name}
             onClick={() => signIn(provider.id,{callbackUrl:process.env.NEXTAUTH_URL},{scope:"openid profile email"})}
             >
-            <Image src={provider?.id === "google" ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjzC2JyZDZ_RaWf0qp11K0lcvB6b6kYNMoqtZAQ9hiPZ4cTIOB" : "/github.svg"} alt='user-logo' width={30} height={30}/>
+            <Image src={provider?.id === "google" ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjzC2JyZDZ_RaWf0qp11K0lcvB6b6kYNMoqtZAQ9hiPZ4cTIOB" : "/github.svg"} alt='user-logo' width={30} height={30} style={{width:"auto",height:"auto"}}/>
             Sign in with {provider.name}           
             </button>
         ))}
@@ -54,6 +56,11 @@ export default function Home() {
         ))}
         </>
        }
+       <div className='grow-0 w-fit'>
+       
+       </div>
+
+      
     </main>
   )
 }
