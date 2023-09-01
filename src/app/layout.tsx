@@ -20,13 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-          <body className='bg-stone-950 h-screen overflow-hidden' >
+          <body className='bg-neutral-950 h-screen overflow-hidden' >
             <Provider >
-              <div className='w-full h-screen bg-slate-800 flex'>
+              <div className='w-full h-screen bg-neutral-950 flex'>
                   <div className=''>
                     <Navigationpanel/>
                   </div>
-                  <div>
+                  <div className='w-full max-md:w-full'>
                      {children}
                   </div>
               </div>

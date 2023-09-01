@@ -13,8 +13,11 @@ import Error from "next/error"
 
 
 
-export async function GET(req:NextRequest) {
+export async function POST(req:NextRequest,res:NextResponse) {
     // const session = await getServerSession(authOptions)
+  const formdata = await req.formData();
+  const title = formdata.get("name")
+  let id:string|null|undefined=""
 
   const token = await getToken({req}).then((token) => {return token?.access_token})
   if (!token) {
@@ -36,47 +39,25 @@ export async function GET(req:NextRequest) {
   auth.setCredentials({refresh_token:refresh_token,access_token:access_token}) 
   
   const sheets = google.sheets({version: 'v4', auth});
-  // const resource = {
-  //   properties: {
-  //     title:"DEvbase",
-  //   },
-  // };
-  // try {
-  //   const spreadsheet =await sheets.spreadsheets.create({
-  //     fields: 'spreadsheetId',
-  //     requestBody: resource,
-  //   });
-  //   console.log(`Spreadsheet ID:`,spreadsheet.data.spreadsheetId ,spreadsheet.data.spreadsheetUrl);
-    
-  // } catch (err) {
-  //   // TODO (developer) - Handle exception
-  //   throw err;
-  // }
-
-  let values = [
-    [
-     "hello","world"
-    ],
-    // Additional rows ...
-  ];
   const resource = {
-    values,
+    properties: {
+      title:title?String(title):"New Sheet",
+    },
   };
   try {
-    const result = await sheets.spreadsheets.values.append({
-      spreadsheetId:"1UOBgFtw1Y0iPbSXxaqM3T5OeNgcqAkkE8L8wIhpZfFM",
-      range:"Sheet1!A:B",
-      valueInputOption:"USER_ENTERED",
-      requestBody:{
-        values:values
-      }
+    const spreadsheet =await sheets.spreadsheets.create({
+      fields: 'spreadsheetId',
+      requestBody: resource,
     });
-    console.log('%d cells updated.', result.data.updates?.updatedCells);
+    id=spreadsheet.data.spreadsheetId;
+    console.log(`Spreadsheet ID:`,spreadsheet.data.spreadsheetId ,spreadsheet.data.spreadsheetUrl);
+    
   } catch (err) {
-    // TODO (Developer) - Handle exception
+    // TODO (developer) - Handle exception
     throw err;
   }
 
-  return new Response(JSON.stringify({"atoken":refresh_token,"token":token}), {status: 200})
+
+  return new Response(JSON.stringify({id}), {status: 200})
 }
 

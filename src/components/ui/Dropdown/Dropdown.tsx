@@ -11,7 +11,7 @@ export const DropDown = ({children,className}:{children:React.ReactNode[],classN
       <DropDownContext.Provider value={open}>
         <motion.div 
           onClick={() => toggle()}
-          className={`relative grow-0 ${className}}`}
+          className={`relative grow-0 ${className} `}
           initial={false}
           animate={open ? "open" : "closed"}
         >
@@ -77,7 +77,7 @@ export const DropDownHeader = ({children,className,openClasses}:{children:React.
       animate={open ? "open" : "closed"}
       whileTap={{ scale: 0.97 }}
       
-      className={`${className} p-3 gap-x-5 h-10 text-white m-0  w-fit flex justify-center items-center rounded-md border-2 hover:bg-zinc-900 ${open  ? (openClasses?openClasses:'border-zinc-700 bg-zinc-900 ') :'border-transparent'} `}
+      className={`${className}  p-3 gap-x-5 h-10 text-white m-0  w-fit flex justify-center items-center rounded-md border-2 hover:bg-zinc-900 ${open  ? (openClasses?openClasses:'border-zinc-700 bg-zinc-900 ') :'border-transparent'} `}
     >
         {children}
     </motion.button>

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import { Skeleton } from '@/components/ui/Skeleton/Skeleton'
 import { DropDown, DropDownHeader,HeaderIcon, DropDownItems, DropItem } from '@/components/ui/Dropdown/Dropdown'
-import { UserIcon, ExitIcon } from '@/components/Icons/Icons'
+import { UserIcon, ExitIcon, DropDownIcon } from '@/components/Icons/Icons'
 
 
 
@@ -46,18 +46,16 @@ export function UserCard() {
         </div>
     )
 }
-const Menu = () => {
+export const Menu = () => {
     return (
         <DropDown>
             <DropDownHeader>
                <HeaderIcon rotate={true}>
-                    <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L7 7L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <DropDownIcon />
                </HeaderIcon>
             </DropDownHeader>
             <DropDownItems>
-                <DropItem title='Account' icon={<UserIcon />} action={() => { }} />
+                <DropItem title='Profile' icon={<UserIcon />} action={() => { }} />
                 <DropItem title='Logout' icon={<ExitIcon />} action={() => { signOut() }} />
             </DropDownItems>
         </DropDown>
