@@ -15,6 +15,22 @@ export function ExitIcon(){
       </svg>
     )
 }
+export function CloseIcon(){
+    return (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.5884 1.84789L1.58838 13.8479" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M1.58838 1.84789L13.5884 13.8479" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+}
+export function InfoIcon(){
+    return (
+      <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 15.8479V11.8479M11 7.8479H11.01M21 11.8479C21 17.3707 16.5228 21.8479 11 21.8479C5.47715 21.8479 1 17.3707 1 11.8479C1 6.32505 5.47715 1.8479 11 1.8479C16.5228 1.8479 21 6.32505 21 11.8479Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+
+    )
+}
 export function DropDownIcon(){
     return (
       <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">

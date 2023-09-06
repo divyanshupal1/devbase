@@ -2,12 +2,12 @@
 // import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 import { NextRequest, NextResponse } from "next/server"
-import { NextURL } from "next/dist/server/web/next-url"
 import { connectToDB } from "@/utils/databse"
 import User from "@/models/User"
 import { getToken } from "next-auth/jwt"
 import {google} from "googleapis"
 import Error from "next/error"
+import { request } from "http"
 
 
 
@@ -15,20 +15,21 @@ import Error from "next/error"
 
 export async function POST(req:NextRequest,res:NextResponse) {
     // const session = await getServerSession(authOptions)
-  const formdata = await req.formData();
-  const title = formdata.get("name")
+  const data = await req.json();
+  const title = data.title;
+  const columns = data.columns;
   let id:string|null|undefined=""
 
   const token = await getToken({req}).then((token) => {return token?.access_token})
   if (!token) {
-    return NextResponse.redirect(new NextURL("http://localhost:3000/"))
+    return NextResponse.redirect(new URL("http://localhost:3000/"))
   }
 
   await connectToDB();
   const user = await User.findOne({ access_token:token });
 
   if(!user){
-    return NextResponse.redirect(new NextURL("http://localhost:3000/"))
+    return NextResponse.redirect(new URL("http://localhost:3000/"))
   }
   const { access_token,refresh_token} = user;
   let auth = new google.auth.OAuth2(
@@ -51,6 +52,55 @@ export async function POST(req:NextRequest,res:NextResponse) {
     });
     id=spreadsheet.data.spreadsheetId;
     console.log(`Spreadsheet ID:`,spreadsheet.data.spreadsheetId ,spreadsheet.data.spreadsheetUrl);
+    try{
+      const result = await sheets.spreadsheets.values.batchUpdate({
+        spreadsheetId: id!,
+        requestBody: {
+          valueInputOption: 'USER_ENTERED',
+          data: [{
+            range: '1:1',
+            values: [columns]
+          }]          
+        }
+      })
+      const result2 = await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: id!,
+        requestBody: {
+          requests: [
+            {
+              "addConditionalFormatRule": {
+                "rule": {
+                  ranges: [{
+                    sheetId: 0,
+                    startRowIndex: 0,
+                    endRowIndex: 1
+                  }],
+                  booleanRule: {
+                    condition: {
+                      type: "CUSTOM_FORMULA",
+                      values: [{
+                        userEnteredValue: "=ISTEXT(A1)"
+                      }]
+                    },
+                    format: {
+                      textFormat: {
+                        bold: true,
+                      }
+                    }
+                  }
+                }
+              }
+            },
+          ],
+        },
+        }
+      )
+      console.log('%d cells updated.', result.data?.totalUpdatedCells);
+    }
+    catch(err){
+      // TODO (developer) - Handle exception
+      throw err;
+    }
     
   } catch (err) {
     // TODO (developer) - Handle exception

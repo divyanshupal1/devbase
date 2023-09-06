@@ -22,7 +22,7 @@ export default function Home() {
     setValue(e.target.value)
   }
 
-  console.log(value)
+  // console.log(value)
 
   return (
     <> 
