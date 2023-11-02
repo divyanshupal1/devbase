@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { AddIcon, CloseIcon, DeleteIcon, ExitIcon, InfoIcon, UserIcon } from '../Icons/Icons'
+// import  Input from "@/components/ui/input"
 
 export const Textfield = () => {
     const [sheetTitle,setSheetTitle] = useState<string>("")
@@ -92,11 +93,11 @@ export const Textfield = () => {
 }
 
 
-export const Input = ({value,onChange,type,index}:{value:string|number,onChange:(e:React.ChangeEvent<HTMLInputElement>)=>void,type:String,index:number}) => { 
-    return (
-        <input type="text" name='username' required autoComplete='off' value={value} tabIndex={index} onChange={(e)=>onChange(e)} className='min-w-[150px] w-full p-2 rounded-md focus:bg-black border border-neutral-700 bg-transparent text-white file:bg-transparent file:border-0 file:border-r-2  file:text-white' />
-    )
-  }
+// export const Input = ({value,onChange,type,index}:{value:string|number,onChange:(e:React.ChangeEvent<HTMLInputElement>)=>void,type:String,index:number}) => { 
+//     return (
+//         <input type="text" name='username' required autoComplete='off' value={value} tabIndex={index} onChange={(e)=>onChange(e)} className='min-w-[150px] w-full p-2 rounded-md focus:bg-black border border-neutral-700 bg-transparent text-white file:bg-transparent file:border-0 file:border-r-2  file:text-white' />
+//     )
+//   }
 
 
 export const InputAction = ({value,onChange,type,index,action}:{value:string,onChange:(e:React.ChangeEvent<HTMLInputElement>)=>void,type:String,index:number,action:(i:number)=>void}) => {

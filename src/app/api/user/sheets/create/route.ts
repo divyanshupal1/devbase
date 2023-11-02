@@ -16,10 +16,15 @@ import { request } from "http"
 export async function POST(req:NextRequest,res:NextResponse) {
     // const session = await getServerSession(authOptions)
   const data = await req.json();
-  const title = data.title;
-  const columns = data.columns;
-  let id:string|null|undefined=""
 
+  const title = data.title;
+  const columns:string[] = []
+  data.columns.forEach((column:string[]) => {
+    columns.push(column[0])
+  })
+
+  let id:string|null|undefined=""
+ 
   const token = await getToken({req}).then((token) => {return token?.access_token})
   if (!token) {
     return NextResponse.redirect(new URL("http://localhost:3000/"))
@@ -35,7 +40,6 @@ export async function POST(req:NextRequest,res:NextResponse) {
   let auth = new google.auth.OAuth2(
      process.env.GOOGLE_CLIENT_ID,
      process.env.GOOGLE_CLIENT_SECRET,
-     process.env.NEXTAUTH_URL,
   )
   auth.setCredentials({refresh_token:refresh_token,access_token:access_token}) 
   

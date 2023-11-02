@@ -14,7 +14,7 @@ export async function middleware(req:NextRequest) {
   const token = await getToken({req}).then((token) => {return token?.access_token})
 
   if(!token){
-    return NextResponse.redirect(new NextURL("/",req.nextUrl))
+    // return NextResponse.redirect(new NextURL("/",req.nextUrl))
   }
 
 }

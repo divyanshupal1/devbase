@@ -1,11 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
 import { useState ,useEffect} from 'react'
 import Image from 'next/image'
 import {signIn, signOut, useSession,getProviders } from 'next-auth/react'
-import { DropDown, DropDownHeader,HeaderIcon, DropDownItems, DropItem, HeaderTitle } from '@/components/ui/Dropdown/Dropdown'
-import { UserIcon, ExitIcon } from '@/components/Icons/Icons'
-import { Backdrop } from '@/components/ui/Backdrop/Backdrop'
-import { Textfield } from '@/components/forms/Textfield'
+import { Toaster } from "@/components/ui/toaster"
+import {CreateDialog} from '@/components/system/Sheet/CreateDialog'
+
 
 export default function Home() {
   const {data: session} = useSession()
@@ -22,11 +22,12 @@ export default function Home() {
     setValue(e.target.value)
   }
 
-  // console.log(value)
+
 
   return (
     <> 
-    <Backdrop><Textfield/></Backdrop>
+    <Toaster />
+    <CreateDialog/>
     <main className="h-screen w-full flex flex-col items-center justify-center ">
       {/* <Navigationpanel/> */}
       <h1 className="text-6xl font-bold text-center text-gray-50">Hello {session?.user.name},</h1>
@@ -70,3 +71,4 @@ export default function Home() {
     </>
   )
 }
+

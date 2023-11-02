@@ -6,6 +6,14 @@ import { signOut, useSession } from 'next-auth/react'
 import { UserCard } from '@/components/ui/UserCard/Usercard'
 import { DropDown, DropDownHeader,HeaderIcon, DropDownItems, DropItem } from '@/components/ui/Dropdown/Dropdown'
 import { UserIcon, ExitIcon, DropDownIcon } from '@/components/Icons/Icons'
+import {GoGear} from 'react-icons/go'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 export default function Navigationpanel() {
   const { data: session } = useSession()
@@ -32,8 +40,28 @@ export default function Navigationpanel() {
 
       </div>
 
-      <div className={`w-full max-w-md h-screen sm:w-80 sm:max-w-ful max-md:absolute max-md:pt-16 transition-all ${open ? '' : 'max-md:translate-x-[-100%]'} bg-black border-r-2 border-zinc-700 top-0 pt-8 p-4 `} >
+      <div className={`rounded-tr-3xl rounded-br-3xl flex flex-col w-full max-w-sm h-screen sm:w-72 sm:max-w-ful max-md:absolute max-md:pt-16 transition-all ${open ? '' : 'max-md:translate-x-[-100%]'} bg-black border-r-2 border-zinc-900 top-0 pt-8 p-4 `} >
         <UserCard />
+        <div className='w-full h-full mt-6 flex items-end'>
+          <div className='w-full flex items-center justify-center gap-x-4'>
+              <div className='w-full text-white p-3 bg-neutral-950 hover:bg-neutral-800 rounded-full text-center cursor-pointer' onClick={()=>signOut()}>SignOut</div>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                  <div className=' text-white p-4  rounded-full text-center hover:animate-spin cursor-pointer '>
+                    <GoGear fill="white" className="scale-150"/>
+                  </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Open Settings</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              
+          </div>
+        </div>
       </div>
     </>
   )
